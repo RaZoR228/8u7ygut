@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>УБИЙЦА НАСЕКОМЫХ</title>
+	<style type="text/css">
+		.window{
+			height: 500px;
+			width: 500px;
+			background-image: url("1464.jpg");
+			background-size: 100%;
+			position: absolute;
+			top: -100%;
+			transition: 1s;
+			left: 32%;
+		}
+		.window2{
+			height: 500px;
+			width: 500px;
+			background-image: url("lose.jpg");
+			background-size: 100%;
+			position: absolute;
+			top: -100%;
+			transition: 1s;
+			left: 32%;
+		}
+	</style>
+</head>
+<body style="background-image: url(bgb.jpg);">
+<h1 class="score" style="color: white">Очки:</h1>
+<h1 class="mass" style="color: white">Жуки:</h1>
+<script type="text/javascript">
+let hp = 2
+let score = 0
+let mass = 0
+let wind = document.querySelector(".window")
+let lose = document.querySelector(".window2")
+
+
+let interv = function(){
+
+	let rand = Math.random()*1400
+	let round = Math.round(rand)
+	
+	let newDiv = document.createElement('img');
+	document.body.appendChild(newDiv);
+	newDiv.style.height = "80px"
+	newDiv.style.width = "80px"
+	newDiv.style.left = round + "px"
+	newDiv.style.top = "670px"
+	newDiv.style.transition = "18s"
+	newDiv.style.position = "absolute"
+	newDiv.src = "img.svg"
+	mass = mass+1 
+	let chaingeTop = function(){
+		newDiv.style.top = "-30%"
+	}
+	setTimeout(chaingeTop,1000)
+	document.querySelector(".mass").innerHTML = "Жуки:" + mass 
+	newDiv.onclick = function(){
+           newDiv.style.display = "none";
+           document.querySelector(".score").innerHTML = "Очки:" + score 
+          score=score+1
+         }
+}
+
+let bigGuy = function(){
+
+	let rand = Math.random()*1400
+	let round = Math.round(rand)
+	
+	let bigGuy = document.createElement('img');
+	document.body.appendChild(bigGuy);
+	bigGuy.style.height = "200px"
+	bigGuy.style.width = "200px"
+	bigGuy.style.left = round + "px"
+	bigGuy.style.top = "670px"
+	bigGuy.style.transition = "20s"
+	bigGuy.style.position = "absolute"
+	bigGuy.src = "bu.png"
+	mass = mass + 1 
+	let chaingeTop = function(){
+		bigGuy.style.top = "-30%"
+	}
+	setTimeout(chaingeTop,1000)
+
+			bigGuy.onclick = function(){
+				hp = hp - 1;
+				score = score + 0.5
+				 document.querySelector(".score").innerHTML = "Очки:" + score 
+          score=score+1	
+				if ( hp  ==  0 ) {
+					hp = 2;
+					bigGuy.style.display="none"
+				}
+			}
+}
+
+let proverka = function(){
+	if ( score >= 15){
+		wind.style.top = "200px"
+		clearInterval(intervalID);
+		clearInterval(bigGuyID);
+	}else{
+		lose.style.top = "200px"
+		clearInterval(intervalID);
+		clearInterval(bigGuyID);
+	}
+}
+
+let bigGuyID=setInterval(bigGuy,2000);
+let intervalID=setInterval(interv,1000);
+setTimeout(proverka,20000)
+
+</script>
+</body>
+</html>
